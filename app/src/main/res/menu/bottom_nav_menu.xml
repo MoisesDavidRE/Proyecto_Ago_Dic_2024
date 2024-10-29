@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/firstFragment_"
+        android:title="Home"
+        android:icon="@drawable/go"
+        tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/secondFragment_"
+        android:title="To Do"
+        android:icon="@drawable/list"
+        tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/thirdFragment_"
+        android:title="Porfile"
+        android:icon="@drawable/porfile"
+        tools:ignore="HardcodedText" />
+</menu>
