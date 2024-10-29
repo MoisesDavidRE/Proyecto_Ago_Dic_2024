@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PokemonDetailActivity">
+    tools:context="com.example.proyecto_ago_dic_2024.PokemonDetailActivity">
 
     <TextView
         android:id="@+id/NombreDetalle"

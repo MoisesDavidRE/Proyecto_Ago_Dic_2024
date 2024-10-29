@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "BottomNav"
+rootProject.name = "Proyecto_Ago_Dic_2024"
 include ':app'

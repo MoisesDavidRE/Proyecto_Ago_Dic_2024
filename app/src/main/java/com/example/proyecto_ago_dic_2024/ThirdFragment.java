@@ -1,4 +1,4 @@
-package com.example.bottomnav;
+package com.example.proyecto_ago_dic_2024;
 
 import android.content.pm.PackageManager;
 import android.location.Location;

@@ -1,9 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.BottomNav" parent="Theme.Material3.DayNight.NoActionBar"/>
+    <style name="Base.Theme.Proyecto_Ago_Dic_2024" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
     </style>
-    <style name="Theme.BottomNav" parent="Base.Theme.BottomNav" />
+
+    <style name="Theme.Proyecto_Ago_Dic_2024" parent="Base.Theme.Proyecto_Ago_Dic_2024" />
 </resources>

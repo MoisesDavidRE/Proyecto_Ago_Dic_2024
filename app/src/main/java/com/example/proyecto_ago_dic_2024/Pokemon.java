@@ -1,4 +1,4 @@
-package com.example.bottomnav;
+package com.example.proyecto_ago_dic_2024;
 public class Pokemon {
     private String name;
     private String image;
