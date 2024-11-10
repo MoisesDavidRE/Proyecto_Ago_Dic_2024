@@ -1,6 +1,9 @@
 package com.example.proyecto_ago_dic_2024;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -18,6 +21,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,4 +47,16 @@ public class MainActivity extends AppCompatActivity {
             throw new IllegalStateException("NavHostFragment no encontrado");
         }
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SessionManager sessionManager = new SessionManager(this);
+        if (!sessionManager.isLoggedIn()) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
 }

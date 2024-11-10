@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "573877425647",
+    "project_id": "proyecto-ago-dic-2024-1adaf",
+    "storage_bucket": "proyecto-ago-dic-2024-1adaf.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:573877425647:android:55f43643fa6e0fd85c121a",
+        "android_client_info": {
+          "package_name": "com.example.proyecto_ago_dic_2024"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5sI-1DDcQe2tPnMpjFS4tByUsNbqHpoE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

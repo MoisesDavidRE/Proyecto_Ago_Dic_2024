@@ -60,7 +60,7 @@ public class SecondFragment extends Fragment {
     }
 
     private void fetchPokemonData() {
-        String url = "https://pokeapi.co/api/v2/pokemon?limit=50";
+        String url = "https://pokeapi.co/api/v2/pokemon?limit=15";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -111,6 +111,4 @@ public class SecondFragment extends Fragment {
         });
         requestQueue.add(request);
     }
-
-
 }
