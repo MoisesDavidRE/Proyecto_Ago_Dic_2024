@@ -55,19 +55,15 @@ public class firstFragment extends Fragment {
     }
 
     private void fetchUserData() {
-        String url = "http://192.168.8.4:5000/user/2";
+        String url = "https://david255311.pythonanywhere.com/user/1";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            // Extraer los datos del JSON
                             String name = response.getString("name");
-
-                            // Crear un objeto User
                             User user = new User(name);
 
-                            // Agregar el usuario a la lista y notificar al adaptador
                             userList.add(user);
                             adapter.notifyDataSetChanged();
                         } catch (JSONException e) {

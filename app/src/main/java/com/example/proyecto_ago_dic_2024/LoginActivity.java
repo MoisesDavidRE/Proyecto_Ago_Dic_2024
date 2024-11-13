@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.Request;
@@ -20,6 +21,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText emailInput, passwordInput;
     private Button loginButton;
+    private Button btnCreateAccount;
     private RequestQueue requestQueue;
 
     @Override
@@ -30,12 +32,21 @@ public class LoginActivity extends AppCompatActivity {
         emailInput = findViewById(R.id.emailInput);
         passwordInput = findViewById(R.id.passwordInput);
         loginButton = findViewById(R.id.loginButton);
+        btnCreateAccount = findViewById(R.id.btnCreateAccount);
         requestQueue = Volley.newRequestQueue(this);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 authenticateUser();
+            }
+        });
+
+        btnCreateAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, RegistryActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -49,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        String url = "http://192.168.8.4:5000/login";  // Reemplaza con la URL de tu API
+        String url = "https://david255311.pythonanywhere.com/login";  // Reemplaza con la URL de tu API
 
         JSONObject jsonBody = new JSONObject();
         try {
@@ -66,7 +77,6 @@ public class LoginActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try {
                             if (response.getBoolean("success")) {
-                                // Guarda la información del usuario para su sesión
                                 JSONObject userData = response.getJSONObject("data");
                                 SessionManager sessionManager = new SessionManager(LoginActivity.this);
                                 sessionManager.saveUserData(userData);
