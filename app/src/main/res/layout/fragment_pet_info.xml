@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,5 +15,91 @@
         android:textSize="18sp"
         android:textColor="#000000"
         android:text="Información de la mascota" />
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#1E3A8A"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/ivPetImage"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/footprint"
+            android:scaleType="centerCrop"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/tvPetName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ivPetImage"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="Kiara"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvAnimal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvPetName"
+            android:layout_centerHorizontal="true"
+            android:text="Gato Siamés"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:layout_marginTop="4dp"/>
+
+        <TextView
+            android:id="@+id/tvAge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvAnimal"
+            android:layout_centerHorizontal="true"
+            android:text="3 años"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:layout_marginTop="4dp"/>
+
+        <TextView
+            android:id="@+id/tvGender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvAge"
+            android:layout_centerHorizontal="true"
+            android:text="Hembra"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:layout_marginTop="4dp"/>
+
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvGender"
+            android:layout_marginTop="10dp"
+            android:text="Es una gata muy juguetona que le gusta mucho dormir, tiene 3 años y no está esterilizada guiño guiño"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:padding="10dp"
+            android:backgroundTint="#003366"/>
+
+        <Button
+            android:id="@+id/btnContactRequest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvDescription"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#FFFF00"
+            android:text="Solicitud de contacto"
+            android:textColor="#000000" />
+    </RelativeLayout>
+
 
 </LinearLayout>

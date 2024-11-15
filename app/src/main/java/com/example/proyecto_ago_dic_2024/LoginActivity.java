@@ -1,7 +1,10 @@
 package com.example.proyecto_ago_dic_2024;
 
+import static java.lang.Boolean.FALSE;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -77,11 +80,18 @@ public class LoginActivity extends AppCompatActivity {
                         try {
                             if (response.getBoolean("success")) {
                                 JSONObject userData = response.getJSONObject("data");
+                                int isFirstLogin = userData.getInt("isFirstLogin");
                                 SessionManager sessionManager = new SessionManager(LoginActivity.this);
                                 sessionManager.saveUserData(userData);
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_SHORT).show();
-                                startActivity(intent);
+
+                                if (isFirstLogin == 1) {
+                                    Intent intent = new Intent(LoginActivity.this, FormPetActivity.class);
+                                    startActivity(intent);
+                                } else {
+                                    Intent intent2 = new Intent(LoginActivity.this, MainActivity.class);
+                                    startActivity(intent2);
+                                    Toast.makeText(LoginActivity.this, String.valueOf(isFirstLogin), Toast.LENGTH_SHORT).show();
+                                }
                                 finish();
                             } else {
                                 Toast.makeText(LoginActivity.this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show();
