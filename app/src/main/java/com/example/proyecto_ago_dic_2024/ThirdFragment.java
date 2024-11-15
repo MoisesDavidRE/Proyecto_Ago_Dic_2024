@@ -1,10 +1,13 @@
 package com.example.proyecto_ago_dic_2024;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
@@ -20,13 +23,16 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import android.widget.Toast;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ThirdFragment extends Fragment implements OnMapReadyCallback {
+public class ThirdFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener{
     private GoogleMap mMap;
     private FusedLocationProviderClient fusedLocationClient;
 
@@ -57,19 +63,21 @@ public class ThirdFragment extends Fragment implements OnMapReadyCallback {
             ActivityCompat.requestPermissions(getActivity(),new String[]{ Manifest.permission.ACCESS_FINE_LOCATION},1);
             return;
         }
-
         mMap.setMyLocationEnabled(true);
-
+        mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(getActivity()));
         fusedLocationClient.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
                 if(location!=null){
+                    SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("user_doc", Context.MODE_PRIVATE);
+                    String nombre = sharedPreferences.getString("user_name","Valor por defecto");
                     LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                    mMap.addMarker(new MarkerOptions().position(currentLocation).title("Tu ubicación"));
+                    mMap.addMarker(new MarkerOptions().position(currentLocation).title(nombre).snippet("Clic para ver más"));
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation,15));
                 }
             }
         });
+        googleMap.setOnInfoWindowClickListener(this);
         addPointsToMap();
     }
 
@@ -96,5 +104,23 @@ public class ThirdFragment extends Fragment implements OnMapReadyCallback {
                 onMapReady(mMap);
             }
         }
+    }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        openPetInfoFragment(marker);
+    }
+
+    private void openPetInfoFragment(Marker marker) {
+        Bundle bundle = new Bundle();
+        bundle.putString("pet_id", marker.getTitle().toString());
+
+        PetInfoFragment petInfoFragment = new PetInfoFragment();
+        petInfoFragment.setArguments(bundle);
+
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.thirdFragment_, petInfoFragment)
+                .commit();
     }
 }

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.Request;
@@ -60,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        String url = "https://david255311.pythonanywhere.com/login";  // Reemplaza con la URL de tu API
+        String url = "https://david255311.pythonanywhere.com/login";
 
         JSONObject jsonBody = new JSONObject();
         try {

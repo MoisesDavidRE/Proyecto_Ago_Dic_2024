@@ -1,6 +1,8 @@
 package com.example.proyecto_ago_dic_2024;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,7 +21,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
@@ -29,8 +30,10 @@ public class firstFragment extends Fragment {
     private UserAdapter adapter;
     private ArrayList<User> userList;
     private RequestQueue requestQueue;
-    public firstFragment() {}
     private Button logoutButton;
+
+
+    public firstFragment() {}
 
     @Nullable
     @Override
@@ -50,7 +53,6 @@ public class firstFragment extends Fragment {
                 logoutUser();
             }
         });
-
         return view;
     }
 
@@ -63,7 +65,6 @@ public class firstFragment extends Fragment {
                         try {
                             String name = response.getString("name");
                             User user = new User(name);
-
                             userList.add(user);
                             adapter.notifyDataSetChanged();
                         } catch (JSONException e) {
@@ -82,9 +83,7 @@ public class firstFragment extends Fragment {
 
     private void logoutUser() {
         SessionManager sessionManager = new SessionManager(getContext());
-        sessionManager.clearSession();  // Borra la sesión del usuario
-
-        // Redirige al usuario a la pantalla de inicio de sesión
+        sessionManager.clearSession();
         Intent intent = new Intent(getContext(), LoginActivity.class);
         startActivity(intent);
     }

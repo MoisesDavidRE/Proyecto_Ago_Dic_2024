@@ -27,6 +27,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class SecondFragment extends Fragment {
+
     private ListView listView;
     private PokemonAdapter adapter;
     private ArrayList<Pokemon> pokemonList;

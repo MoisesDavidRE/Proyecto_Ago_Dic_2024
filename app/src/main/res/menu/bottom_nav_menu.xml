@@ -5,21 +5,21 @@
     <item
         android:id="@+id/firstFragment_"
         android:title="Explorar"
-        android:icon="@drawable/pin"
+        android:icon="@drawable/footprint"
         tools:ignore="HardcodedText" />
     <item
         android:id="@+id/thirdFragment_"
+        android:title="Mascotas"
+        android:icon="@drawable/pin"
+        tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/secondFragment_"
         android:title="Ajustes"
         android:icon="@drawable/settings"
         tools:ignore="HardcodedText" />
     <item
-        android:id="@+id/secondFragment_"
-        android:title="Mascotas"
-        android:icon="@drawable/footprint"
-        tools:ignore="HardcodedText" />
-    <item
         android:id="@+id/cameraFragment_"
-        android:title="Ajustes"
+        android:title="Cámar"
         android:icon="@drawable/camera"
         tools:ignore="HardcodedText" />
 </menu>
