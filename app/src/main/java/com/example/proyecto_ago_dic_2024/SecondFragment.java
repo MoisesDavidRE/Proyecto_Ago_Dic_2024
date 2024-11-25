@@ -96,7 +96,6 @@ public class SecondFragment extends Fragment {
                             int weight = response.getInt("weight");
                             int height = response.getInt("height");
                             String urlImage = response.getJSONObject("sprites").getString("front_default");
-
                             Pokemon pokemon = new Pokemon(name, urlImage, weight, height);
                             pokemonList.add(pokemon);
                             adapter.notifyDataSetChanged();

@@ -6,12 +6,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
@@ -24,15 +36,27 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
     }
 
     private void renderWindowText(Marker marker, View view){
-        ImageView imageView = view.findViewById(R.id.info_window_image);
-        TextView title = view.findViewById(R.id.info_window_title);
-        TextView snippet = view.findViewById(R.id.info_window_snippet);
-        Button button = view.findViewById(R.id.info_window_button);
 
-//        imageView.setImageResource(R.drawable.ic_launcher_foreground); // Set your image here
-        Picasso.get().load("https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSy6A0qhTNrrZ415ug0G27AEh1_FYrzmihMfMKQIVBMqZRRmH6K").into(imageView);
-        title.setText(marker.getTitle());
-        snippet.setText(marker.getSnippet());
+        String snippet2 = marker.getSnippet();
+        try {
+            JSONObject markerData = new JSONObject(snippet2);
+            String name = markerData.getString("name");
+            String gender = markerData.getString("gender");
+            String imageUrl = markerData.getString("imageUrl");
+
+            // Establecer texto
+            TextView tvName = view.findViewById(R.id.info_window_title);
+            tvName.setText(name);
+
+//            TextView tvGender = view.findViewById(R.id.info_window_gender);
+//            tvGender.setText(gender);
+
+            // Cargar imagen
+            ImageView ivImage = view.findViewById(R.id.info_window_image);
+            Picasso.get().load(imageUrl).into(ivImage);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -45,4 +69,5 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
     public View getInfoContents(Marker marker) {
         return null;
     }
+
 }

@@ -83,7 +83,6 @@ public class LoginActivity extends AppCompatActivity {
                                 int isFirstLogin = userData.getInt("isFirstLogin");
                                 SessionManager sessionManager = new SessionManager(LoginActivity.this);
                                 sessionManager.saveUserData(userData);
-
                                 if (isFirstLogin == 1) {
                                     Intent intent = new Intent(LoginActivity.this, FormPetActivity.class);
                                     startActivity(intent);
@@ -113,7 +112,6 @@ public class LoginActivity extends AppCompatActivity {
                 return "application/json";
             }
         };
-
         requestQueue.add(jsonObjectRequest);
     }
 }

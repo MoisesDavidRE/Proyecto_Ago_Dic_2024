@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/firstFragment_">
+    app:startDestination="@id/thirdFragment_">
 
     <fragment
         android:id="@+id/firstFragment_"
@@ -21,11 +21,5 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         tools:layout="@layout/fragment_third"/>
-    <fragment
-        android:id="@+id/cameraFragment_"
-        android:name="com.example.proyecto_ago_dic_2024.CameraFragment"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        tools:layout="@layout/fragment_camera"/>
 
 </navigation>
