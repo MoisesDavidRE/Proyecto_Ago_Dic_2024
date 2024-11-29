@@ -43,7 +43,6 @@ public class CameraFragment extends Fragment {
                 openCamera();
             }
         });
-
         return rootView;
     }
 

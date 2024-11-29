@@ -130,6 +130,22 @@ public class Pet {
         this.image3 = image3;
     }
 
+    public Double getLat() {
+        return lat;
+    }
+
+    public void setLat(Double lat) {
+        this.lat = lat;
+    }
+
+    public Double getLon() {
+        return lon;
+    }
+
+    public void setLon(Double lon) {
+        this.lon = lon;
+    }
+
     @Override
     public String toString() {
         return "Pet{" +

@@ -6,11 +6,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 public class PetInfoFragment extends Fragment {
     private Button buttonRequest;
@@ -18,12 +22,33 @@ public class PetInfoFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pet_info, container, false);
-        String petId = getArguments().getString("pet_id");
+        Bundle args = getArguments();
+        String petId = args.getString("pet_id");
+        String name = args.getString("name");
+        String animal = args.getString("animal");
+        String breed = args.getString("pbreed");
+        String age = args.getString("age");
+        String gender = args.getString("gender");
+        String description = args.getString("description");
+        String size = args.getString("size");
+        String idUser = args.getString("idUser");
+        String imageUrl = args.getString("image1");
+        String image2 = args.getString("image2");
+        String image3 = args.getString("image3");
 
         Button buttonRequest = view.findViewById(R.id.btnContactRequest);
         TextView petInfoTextView = view.findViewById(R.id.pet_info_text);
-        petInfoTextView.setText("Detalles de la mascota con ID: " + petId);
-
+        TextView petAnimal = view.findViewById(R.id.tvAnimal);
+        TextView petDescription = view.findViewById(R.id.tvDescription);
+        TextView petName = view.findViewById(R.id.tvPetName);
+        ImageView image1 = view.findViewById(R.id.ivPetImage);
+        TextView petGender = view.findViewById(R.id.tvGender);
+        petInfoTextView.setText("Detalles de la mascota con ID: " + idUser);
+        petName.setText(name);
+        petDescription.setText(description);
+        petAnimal.setText(animal+": "+ breed);
+        petGender.setText(gender);
+        Picasso.get().load(imageUrl).into(image1);
         buttonRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

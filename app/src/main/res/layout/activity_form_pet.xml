@@ -1,143 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".FormPetActivity">
 
-    <TextView
-        android:id="@+id/info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="50dp"
-        android:text="Información de tu mascota"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/nombreAnimal"
+    <LinearLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/info"
-        android:layout_marginTop="50dp"
-        android:backgroundTint="#000000"
-        android:hint="Nombre"
-        android:inputType="textEmailAddress"
-        android:padding="10dp"
-        android:textColor="#000000"
-        android:textColorHint="#CCCCCC" />
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <EditText
-        android:id="@+id/animal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/nombreAnimal"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#000000"
-        android:hint="Animal"
-        android:inputType="text"
-        android:padding="10dp"
-        android:textColor="#000000"
-        android:textColorHint="#CCCCCC" />
+        <TextView
+            android:id="@+id/info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp"
+            android:text="Información de tu mascota"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/raza"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#000000"
-        android:hint="Raza"
-        android:inputType="text"
-        android:padding="10dp"
-        android:textColor="#000000"
-        android:textColorHint="#CCCCCC" />
+        <EditText
+            android:id="@+id/nombreAnimal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:backgroundTint="#000000"
+            android:hint="Nombre"
+            android:inputType="textEmailAddress"
+            android:padding="10dp"
+            android:textColor="#000000"
+            android:textColorHint="#CCCCCC" />
 
-    <EditText
-        android:id="@+id/edad"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#000000"
-        android:hint="Edad"
-        android:inputType="text"
-        android:padding="10dp"
-        android:textColor="#000000"
-        android:textColorHint="#CCCCCC" />
+        <EditText
+            android:id="@+id/animal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#000000"
+            android:hint="Animal"
+            android:inputType="text"
+            android:padding="10dp"
+            android:textColor="#000000"
+            android:textColorHint="#CCCCCC" />
 
-    <EditText
-        android:id="@+id/genero"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#000000"
-        android:hint="Género"
-        android:inputType="text"
-        android:padding="10dp"
-        android:textColor="#000000"
-        android:textColorHint="#CCCCCC" />
+        <EditText
+            android:id="@+id/raza"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#000000"
+            android:hint="Raza"
+            android:inputType="text"
+            android:padding="10dp"
+            android:textColor="#000000"
+            android:textColorHint="#CCCCCC" />
 
-    <Spinner
-        android:id="@+id/spinnerSeleccion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp" />
+        <EditText
+            android:id="@+id/edad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#000000"
+            android:hint="Edad"
+            android:inputType="text"
+            android:padding="10dp"
+            android:textColor="#000000"
+            android:textColorHint="#CCCCCC" />
 
-    <EditText
-        android:id="@+id/descripcion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#000000"
-        android:hint="Descripción"
-        android:inputType="text"
-        android:padding="10dp"
-        android:textColor="#000000"
-        android:textColorHint="#CCCCCC" />
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:rowCount="1"
-        android:columnCount="3"
-        android:padding="10dp"
-        android:alignmentMode="alignMargins">
+        <EditText
+            android:id="@+id/genero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#000000"
+            android:hint="Género"
+            android:inputType="text"
+            android:padding="10dp"
+            android:textColor="#000000"
+            android:textColorHint="#CCCCCC" />
 
-        <ImageView
-            android:id="@+id/petimageView1"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="10dp"
-            app:srcCompat="@drawable/footprint" />
+        <Spinner
+            android:id="@+id/spinnerSeleccion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
 
-        <ImageView
-            android:id="@+id/petimageView2"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="10dp"
-            app:srcCompat="@drawable/footprint" />
+        <EditText
+            android:id="@+id/descripcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#000000"
+            android:hint="Descripción"
+            android:inputType="text"
+            android:padding="10dp"
+            android:textColor="#000000"
+            android:textColorHint="#CCCCCC" />
 
-        <ImageView
-            android:id="@+id/petimageView3"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="10dp"
-            app:srcCompat="@drawable/footprint" />
-    </GridLayout>
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alignmentMode="alignMargins"
+            android:columnCount="3"
+            android:padding="10dp"
+            android:rowCount="1">
 
+            <ImageView
+                android:id="@+id/petimageView1"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="10dp"
+                app:srcCompat="@drawable/footprint" />
 
+            <ImageView
+                android:id="@+id/petimageView2"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="10dp"
+                app:srcCompat="@drawable/footprint" />
 
-    <Button
-        android:id="@+id/btnEnviar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="#FFFF00"
-        android:text="Continuar"
-        android:textColor="#000000" />
+            <ImageView
+                android:id="@+id/petimageView3"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="10dp"
+                app:srcCompat="@drawable/footprint" />
+        </GridLayout>
 
-</LinearLayout>
+        <fragment
+            android:id="@+id/mapFragment2"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="300dp" />
+
+        <Button
+            android:id="@+id/btnEnviar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#FFFF00"
+            android:text="Continuar"
+            android:textColor="#000000" />
+    </LinearLayout>
+</ScrollView>

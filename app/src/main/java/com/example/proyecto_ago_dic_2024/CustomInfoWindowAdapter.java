@@ -44,17 +44,12 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
             String gender = markerData.getString("gender");
             String imageUrl = markerData.getString("imageUrl");
 
-            // Establecer texto
             TextView tvName = view.findViewById(R.id.info_window_title);
             tvName.setText(name);
 
-//            TextView tvGender = view.findViewById(R.id.info_window_gender);
-//            tvGender.setText(gender);
-
-            // Cargar imagen
             ImageView ivImage = view.findViewById(R.id.info_window_image);
             Picasso.get().load(imageUrl).into(ivImage);
-        } catch (JSONException e) {
+        } catch (JSONException e) { 
             e.printStackTrace();
         }
     }

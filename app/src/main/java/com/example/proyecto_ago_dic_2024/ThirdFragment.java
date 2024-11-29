@@ -7,7 +7,6 @@ import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
@@ -30,18 +29,31 @@ import com.google.android.gms.maps.model.Marker;
 import android.widget.Toast;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ThirdFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener{
     private GoogleMap mMap;
     private FusedLocationProviderClient fusedLocationClient;
+    int idUser;
+    int idPet;
+    String name;
+    String animal;
+    String breed;
+    Integer age;
+    Integer gender;
+    String size;
+    String description;
+    String image1;
+    String image2;
+    String image3;
+    private final HashMap<Marker, Pet> markerPetMap = new HashMap<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -57,7 +69,6 @@ public class ThirdFragment extends Fragment implements OnMapReadyCallback, Googl
         View rootView = inflater.inflate(R.layout.fragment_third,container,false);
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.thirdFragment_);
         mapFragment.getMapAsync(this);
-        getMascotas();
         return rootView;
     }
 
@@ -86,23 +97,7 @@ public class ThirdFragment extends Fragment implements OnMapReadyCallback, Googl
             }
         });
         googleMap.setOnInfoWindowClickListener(this);
-        addPointsToMap();
-    }
-
-    private void addPointsToMap () {
-        List<LatLng> points = new ArrayList<>();
-        points.add(new LatLng(19.432608,-99.133209));
-        points.add(new LatLng(20.659698,-103.349609));
-        points.add(new LatLng(25.686614,-100.316113));
-        points.add(new LatLng(21.161908,-86.851528));
-        points.add(new LatLng(19.4978,-99.1269));
-
-        for(LatLng point : points){
-            mMap.addMarker(new MarkerOptions().position(point).title("Punto de interés"));
-        }
-
-        LatLng firstPoint = points.get(0);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(firstPoint,5));
+        getMascotas();
     }
 
     @Override
@@ -116,12 +111,31 @@ public class ThirdFragment extends Fragment implements OnMapReadyCallback, Googl
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        openPetInfoFragment(marker);
+        Pet selectedPet = markerPetMap.get(marker); // Obtén la mascota asociada al marcador
+
+        if (selectedPet != null) {
+            openPetInfoFragment(selectedPet); // Envía la mascota al nuevo fragmento
+        } else {
+            Toast.makeText(getContext(), "No se encontró información de la mascota.", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    private void openPetInfoFragment(Marker marker) {
+    private void openPetInfoFragment(Pet pet) {
         Bundle bundle = new Bundle();
-        bundle.putString("pet_id", marker.getTitle().toString());
+        bundle.putInt("idPet", pet.getIdPet());
+        bundle.putInt("idUser", pet.getIdUser());
+        bundle.putString("name", pet.getName());
+        bundle.putString("animal", pet.getAnimal());
+        bundle.putString("breed", pet.getBreed());
+        bundle.putInt("age", pet.getAge());
+        bundle.putInt("gender", pet.getGender());
+        bundle.putString("size", pet.getSize());
+        bundle.putString("description", pet.getDescription());
+        bundle.putString("image1", pet.getImage1());
+        bundle.putString("image2", pet.getImage2());
+        bundle.putString("image3", pet.getImage3());
+        bundle.putDouble("lat", pet.getLat());
+        bundle.putDouble("lon", pet.getLon());
 
         PetInfoFragment petInfoFragment = new PetInfoFragment();
         petInfoFragment.setArguments(bundle);
@@ -129,6 +143,7 @@ public class ThirdFragment extends Fragment implements OnMapReadyCallback, Googl
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.thirdFragment_, petInfoFragment)
+                .addToBackStack(null) // Permitir regresar al mapa
                 .commit();
     }
 
@@ -143,29 +158,18 @@ public class ThirdFragment extends Fragment implements OnMapReadyCallback, Googl
 
                         for (int i = 0; i < pets.length(); i++) {
                             JSONObject pet = pets.getJSONObject(i);
-                            int idUser  = pet.getInt("idUser");
-                            int idPet =pet.getInt("idPet");
-                            String name = pet.getString("name");
-                            String animal = pet.getString("animal");
-                            String breed = pet.getString("breed");
-                            Integer age = pet.getInt("age");
-                            Integer gender = pet.getInt("gender");
-                            String size = pet.getString("size");
-                            String description = pet.getString("description");
-                            String image1 = null;
-                            String image2 = null;
-                            String image3 = null;
-                            if(!pet.getString("image1").isEmpty()){
-                                image1 = pet.getString("image1");
-                            }
-
-                            if(!pet.getString("image2").isEmpty()){
-                                image2 = pet.getString("image2");
-                            }
-
-                            if(!pet.getString("image3").isEmpty()){
-                                image3 = pet.getString("image3");
-                            }
+                             idUser  = pet.getInt("idUser");
+                             idPet = pet.getInt("idPet");
+                             name = pet.getString("name");
+                             animal = pet.getString("animal");
+                             breed = pet.getString("breed");
+                             age = pet.getInt("age");
+                             gender = pet.getInt("gender");
+                             size = pet.getString("size");
+                             description = pet.getString("description");
+                             image1 = pet.getString("image1");
+                             image2 = pet.getString("image2");
+                             image3 = pet.getString("image3");
 
                             double lat = pet.getDouble("lat");
                             double lon = pet.getDouble("lon");
@@ -174,7 +178,19 @@ public class ThirdFragment extends Fragment implements OnMapReadyCallback, Googl
                             snippetData.put("name", name);
                             snippetData.put("gender", gender);
                             snippetData.put("imageUrl", image1);
-
+                            snippetData.put("idUser", image1);
+                            snippetData.put("animal", image1);
+                            snippetData.put("breed", image1);
+                            snippetData.put("age", image1);
+                            snippetData.put("gender", image1);
+                            snippetData.put("size", image1);
+                            snippetData.put("description", image1);
+                            if(image2 != null) {
+                                snippetData.put("image2", image2);
+                            }
+                            if(image3 != null) {
+                                snippetData.put("image3", image3);
+                            }
                             LatLng petLocation = new LatLng(lat, lon);
                             MarkerOptions markerOptions = new MarkerOptions()
                                     .position(petLocation)
@@ -182,8 +198,12 @@ public class ThirdFragment extends Fragment implements OnMapReadyCallback, Googl
                                     .snippet(snippetData.toString());
                             mMap.addMarker(markerOptions);
 
-                            Pet petO = new Pet(idPet, idUser , name, animal, breed, age, gender, size, description, image1, image2, image3, lat, lon);
+                            Pet petO = new Pet(idPet, idUser , name, animal, breed, age, gender, size,
+                                               description, image1, image2, image3, lat, lon);
                             petsA.add(petO);
+                            Marker marker = mMap.addMarker(markerOptions);
+                            markerPetMap.put(marker, petO); // Asocia el marcador con el objeto Pet
+
 
                         }
                     } catch (JSONException e) {
@@ -196,4 +216,5 @@ public class ThirdFragment extends Fragment implements OnMapReadyCallback, Googl
         );
         Volley.newRequestQueue(getContext()).add(request);
     }
+
 }

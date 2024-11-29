@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
@@ -27,6 +28,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,12 +45,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class FormPetActivity extends AppCompatActivity {
+public class FormPetActivity extends AppCompatActivity implements OnMapReadyCallback {
     String seleccionado;
     EditText nombre, animal, raza, edad, genero, descripcion;
     ImageView imagen1, imagen2, imagen3;
     Bitmap bitmap1, bitmap2, bitmap3; // Para almacenar las imágenes seleccionadas
     Button btnEnviar;
+    private GoogleMap mMap;
+    private Marker userMarker; // Marca del usuario
+    private double selectedLat = 0.0, selectedLng = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +67,12 @@ public class FormPetActivity extends AppCompatActivity {
         genero = findViewById(R.id.genero);
         descripcion = findViewById(R.id.descripcion);
         btnEnviar = findViewById(R.id.btnEnviar);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.mapFragment2);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
 
         imagen1 = findViewById(R.id.petimageView1);
         imagen2 = findViewById(R.id.petimageView2);
@@ -94,6 +111,8 @@ public class FormPetActivity extends AppCompatActivity {
                 enviarDatos();
             }
         });
+
+
     }
 
     private void seleccionarImagen(int requestCode) {
@@ -158,7 +177,14 @@ public class FormPetActivity extends AppCompatActivity {
             if (bitmap3 != null) {
                 jsonObject.put("image3", convertirImagenABase64(bitmap3));
             }
-            Log.d("imagen", convertirImagenABase64(bitmap1));
+            // Agrega las coordenadas solo si se seleccionó una ubicación
+            if (selectedLat != 0.0 && selectedLng != 0.0) {
+                jsonObject.put("latitude", selectedLat);
+                jsonObject.put("longitude", selectedLng);
+            } else {
+                Toast.makeText(this, "Por favor selecciona una ubicación en el mapa", Toast.LENGTH_SHORT).show();
+                return; // Detén la ejecución si no hay coordenadas
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -181,5 +207,49 @@ public class FormPetActivity extends AppCompatActivity {
         };
         Volley.newRequestQueue(this).add(jsonObjectRequest);
         Log.d("ObjetoJSON", String.valueOf(jsonObject));
+    }
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        mMap = googleMap;
+
+        LatLng initialLocation = new LatLng(19.432608, -99.133209); // Ciudad de México
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initialLocation, 10));
+
+        mMap.setOnMapClickListener(latLng -> handleMapClick(latLng));
+
+        mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+            @Override
+            public void onMarkerDragStart(Marker marker) {
+                // Evento al iniciar el arrastre
+                System.out.println("Iniciando arrastre del marcador...");
+            }
+
+            @Override
+            public void onMarkerDrag(Marker marker) {
+                System.out.println("Arrastrando marcador a: " + marker.getPosition());
+            }
+
+            @Override
+            public void onMarkerDragEnd(Marker marker) {
+                System.out.println("Marcador movido a: " + marker.getPosition());
+            }
+        });
+    }
+
+    private void handleMapClick(LatLng latLng) {
+        if (userMarker == null) {
+            userMarker = mMap.addMarker(new MarkerOptions()
+                    .position(latLng)
+                    .title("Posición seleccionada")
+                    .draggable(true));
+        }
+        selectedLat = userMarker.getPosition().latitude;
+        selectedLng = userMarker.getPosition().longitude;
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+        super.onPointerCaptureChanged(hasCapture);
     }
 }
