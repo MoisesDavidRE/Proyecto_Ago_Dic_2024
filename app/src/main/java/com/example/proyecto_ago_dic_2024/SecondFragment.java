@@ -1,7 +1,10 @@
 package com.example.proyecto_ago_dic_2024;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,18 +22,22 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SecondFragment extends Fragment {
 
     private ListView listView;
     private PokemonAdapter adapter;
-    private ArrayList<Pokemon> pokemonList;
+    private ArrayList<Pet> petList;
     private RequestQueue requestQueue;
 
     @Nullable
@@ -39,65 +46,55 @@ public class SecondFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_second, container, false);
 
         listView = view.findViewById(R.id.listViewPokemon);
-        pokemonList = new ArrayList<>();
-        adapter = new PokemonAdapter(getActivity(), pokemonList);
-        listView.setAdapter(adapter);
+        petList = new ArrayList<>();
+        adapter = new PokemonAdapter(getActivity(), petList);
         requestQueue = Volley.newRequestQueue(getActivity());
-        fetchPokemonData();
-
+        fetchPetsData();
+        listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Pokemon selectedPokemon = pokemonList.get(position);
+                Pet selectedPokemon = petList.get(position);
                 Intent intent = new Intent(getActivity(), PokemonDetailActivity.class);
                 intent.putExtra("name", selectedPokemon.getName());
-                intent.putExtra("height", ""+selectedPokemon.getHeight());
-                intent.putExtra("weight", ""+selectedPokemon.getWeight());
-                intent.putExtra("image", selectedPokemon.getImageUrl());
                 startActivity(intent);
             }
         });
         return view;
     }
 
-    private void fetchPokemonData() {
-        String url = "https://pokeapi.co/api/v2/pokemon?limit=15";
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+    private void fetchPetsData() {
+        String url = "https://david255311.pythonanywhere.com/userPets/";
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("user_doc", Context.MODE_PRIVATE);
+        String idUser = sharedPreferences.getString("user_id", "Valor por defecto");
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url+idUser, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            JSONArray results = response.getJSONArray("results");
+                            JSONArray results = response.getJSONArray("pets");
                             for (int i = 0; i < results.length(); i++) {
-                                JSONObject pokemonObject = results.getJSONObject(i);
-                                String pokemonUrl = pokemonObject.getString("url");
-                                fetchPokemonDetails(pokemonUrl);
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
-            }
-        });
-        requestQueue.add(request);
-    }
+                                JSONObject pet = results.getJSONObject(i);
+                                Integer idUser  = pet.getInt("idUser");
+                                Integer idPet = pet.getInt("idPet");
+                                String name = pet.getString("name");
+                                String animal = pet.getString("animal");
+                                String breed = pet.getString("breed");
+                                Integer age = pet.getInt("age");
+                                Integer gender = pet.getInt("gender");
+                                String size = pet.getString("size");
+                                String description = pet.getString("description");
+                                String image1 = pet.getString("image1");
+                                String image2 = pet.getString("image2");
+                                String image3 = pet.getString("image3");
 
-    private void fetchPokemonDetails(String url) {
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            String name = response.getString("name");
-                            int weight = response.getInt("weight");
-                            int height = response.getInt("height");
-                            String urlImage = response.getJSONObject("sprites").getString("front_default");
-                            Pokemon pokemon = new Pokemon(name, urlImage, weight, height);
-                            pokemonList.add(pokemon);
+                                double lat = pet.getDouble("lat");
+                                double lon = pet.getDouble("lon");
+
+                                Pet petO = new Pet(idPet, idUser , name, animal, breed, age, gender, size,
+                                        description, image1, image2, image3, lat, lon);
+                                petList.add(petO);
+                            }
                             adapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -106,7 +103,7 @@ public class SecondFragment extends Fragment {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(getContext(), "Cargando...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
             }
         });
         requestQueue.add(request);

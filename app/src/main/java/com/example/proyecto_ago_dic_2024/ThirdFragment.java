@@ -178,19 +178,7 @@ public class ThirdFragment extends Fragment implements OnMapReadyCallback, Googl
                             snippetData.put("name", name);
                             snippetData.put("gender", gender);
                             snippetData.put("imageUrl", image1);
-                            snippetData.put("idUser", image1);
-                            snippetData.put("animal", image1);
-                            snippetData.put("breed", image1);
-                            snippetData.put("age", image1);
-                            snippetData.put("gender", image1);
-                            snippetData.put("size", image1);
-                            snippetData.put("description", image1);
-                            if(image2 != null) {
-                                snippetData.put("image2", image2);
-                            }
-                            if(image3 != null) {
-                                snippetData.put("image3", image3);
-                            }
+
                             LatLng petLocation = new LatLng(lat, lon);
                             MarkerOptions markerOptions = new MarkerOptions()
                                     .position(petLocation)

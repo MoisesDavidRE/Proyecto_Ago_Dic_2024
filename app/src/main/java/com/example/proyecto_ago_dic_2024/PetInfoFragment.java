@@ -23,15 +23,15 @@ public class PetInfoFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pet_info, container, false);
         Bundle args = getArguments();
-        String petId = args.getString("pet_id");
+        Integer petId = args.getInt("idPet");
+        Integer idUser = args.getInt("idUser");
         String name = args.getString("name");
         String animal = args.getString("animal");
-        String breed = args.getString("pbreed");
-        String age = args.getString("age");
+        String breed = args.getString("breed");
+        Integer age = args.getInt("age");
         String gender = args.getString("gender");
         String description = args.getString("description");
         String size = args.getString("size");
-        String idUser = args.getString("idUser");
         String imageUrl = args.getString("image1");
         String image2 = args.getString("image2");
         String image3 = args.getString("image3");
@@ -43,6 +43,8 @@ public class PetInfoFragment extends Fragment {
         TextView petName = view.findViewById(R.id.tvPetName);
         ImageView image1 = view.findViewById(R.id.ivPetImage);
         TextView petGender = view.findViewById(R.id.tvGender);
+        TextView petAge = view.findViewById(R.id.tvAge);
+        petAge.setText("Años: "+ age);
         petInfoTextView.setText("Detalles de la mascota con ID: " + idUser);
         petName.setText(name);
         petDescription.setText(description);
@@ -52,9 +54,11 @@ public class PetInfoFragment extends Fragment {
         buttonRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Bundle bundle = new Bundle();
+                bundle.putInt("idPet", petId);
+                bundle.putInt("idUser", idUser);
                 OwnerContactFragment ownerContactFragment = new OwnerContactFragment();
-
+                ownerContactFragment.setArguments(bundle);
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.thirdFragment_, ownerContactFragment)
@@ -62,7 +66,6 @@ public class PetInfoFragment extends Fragment {
                         .commit();
             }
         });
-
         return view;
     }
 }

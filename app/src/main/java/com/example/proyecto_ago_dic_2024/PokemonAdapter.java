@@ -1,6 +1,7 @@
 package com.example.proyecto_ago_dic_2024;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +12,13 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class PokemonAdapter extends ArrayAdapter<Pokemon> {
-    public PokemonAdapter(Context context, List<Pokemon> pokemons) {
-        super(context, 0, pokemons);
+public class PokemonAdapter extends ArrayAdapter<Pet> {
+    public PokemonAdapter(Context context, List<Pet> pets) {
+        super(context, 0, pets);
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Pokemon pokemon = getItem(position);
+        Pet pet = getItem(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.pokemon_list_item, parent, false);
         }
@@ -25,9 +26,10 @@ public class PokemonAdapter extends ArrayAdapter<Pokemon> {
         TextView text2 = convertView.findViewById(R.id.text2);
         ImageView imageView = convertView.findViewById(R.id.imageView);
 
-        text1.setText(pokemon.getName());
-        text2.setText("Height: " + pokemon.getHeight() + " Weight: " + pokemon.getWeight());
-        Picasso.get().load(pokemon.getImageUrl()).into(imageView);
+        text1.setText(pet.getName());
+        text2.setText("Animal: " + pet.getAnimal() + "Raza: " + pet.getBreed());
+        Log.d("Datos", pet.getName()+pet.getBreed()+pet.getAnimal());
+        Picasso.get().load(pet.getImage1()).into(imageView);
         return convertView;
     }
 }

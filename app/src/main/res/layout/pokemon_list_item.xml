@@ -23,11 +23,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Pokemon Name"
+            android:textColor="#000"
             android:textSize="24sp"/>
 
         <TextView
             android:id="@+id/text2"
             android:layout_width="wrap_content"
+            android:textColor="#000"
             android:layout_height="wrap_content"
             android:text="TextView" />
     </LinearLayout>
