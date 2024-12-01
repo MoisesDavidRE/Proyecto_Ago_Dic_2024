@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -154,6 +155,7 @@ public class ThirdFragment extends Fragment implements OnMapReadyCallback, Googl
                 response -> {
                     try {
                         JSONArray pets = response.getJSONArray("pets");
+                        Log.d("Resultados", ""+pets);
                         List<Pet> petsA = new ArrayList<>();
 
                         for (int i = 0; i < pets.length(); i++) {
@@ -173,6 +175,10 @@ public class ThirdFragment extends Fragment implements OnMapReadyCallback, Googl
 
                             double lat = pet.getDouble("lat");
                             double lon = pet.getDouble("lon");
+                            Boolean req;
+                            if(pet.getInt("request") == 1){
+                                req = true;
+                            } else { req = false; }
 
                             JSONObject snippetData = new JSONObject();
                             snippetData.put("name", name);
@@ -187,12 +193,10 @@ public class ThirdFragment extends Fragment implements OnMapReadyCallback, Googl
                             mMap.addMarker(markerOptions);
 
                             Pet petO = new Pet(idPet, idUser , name, animal, breed, age, gender, size,
-                                               description, image1, image2, image3, lat, lon);
+                                               description, image1, image2, image3, lat, lon,req);
                             petsA.add(petO);
                             Marker marker = mMap.addMarker(markerOptions);
                             markerPetMap.put(marker, petO); // Asocia el marcador con el objeto Pet
-
-
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

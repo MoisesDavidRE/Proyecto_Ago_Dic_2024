@@ -22,16 +22,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SecondFragment extends Fragment {
 
@@ -90,9 +86,13 @@ public class SecondFragment extends Fragment {
 
                                 double lat = pet.getDouble("lat");
                                 double lon = pet.getDouble("lon");
+                                Boolean req;
+                                if(pet.getInt("request") == 1){
+                                    req = true;
+                                } else { req = false; }
 
                                 Pet petO = new Pet(idPet, idUser , name, animal, breed, age, gender, size,
-                                        description, image1, image2, image3, lat, lon);
+                                        description, image1, image2, image3, lat, lon, req);
                                 petList.add(petO);
                             }
                             adapter.notifyDataSetChanged();

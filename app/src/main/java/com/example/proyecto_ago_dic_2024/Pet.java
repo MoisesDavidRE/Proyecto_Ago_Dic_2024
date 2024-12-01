@@ -15,8 +15,9 @@ public class Pet {
     private String image2;
     private String image3;
     private Double lat, lon;
+    private Boolean request;
 
-    public Pet(int idPet, int idUser , String name, String animal, String breed, Integer age, Integer gender, String size, String description, String image1, String image2, String image3, Double lat, Double lon) {
+    public Pet(int idPet, int idUser , String name, String animal, String breed, Integer age, Integer gender, String size, String description, String image1, String image2, String image3, Double lat, Double lon, Boolean request) {
         this.idPet = idPet;
         this.idUser  = idUser ;
         this.name = name;
@@ -31,6 +32,7 @@ public class Pet {
         this.image3 = image3;
         this.lat = lat;
         this.lon = lon;
+        this.request = request;
     }
 
     // Getters y Setters
@@ -144,6 +146,10 @@ public class Pet {
 
     public void setLon(Double lon) {
         this.lon = lon;
+    }
+
+    public Boolean hasPendingRequests () {
+        return request;
     }
 
     @Override
