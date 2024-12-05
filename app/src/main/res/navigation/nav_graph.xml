@@ -22,4 +22,21 @@
         android:layout_width="match_parent"
         tools:layout="@layout/fragment_third"/>
 
+    <fragment
+        android:id="@+id/petDetailFragment"
+        android:name="com.example.proyecto_ago_dic_2024.PetDetailFragment"
+        android:label="Pet Details"
+        tools:layout="@layout/fragment_pet_detail" />
+
+    <fragment
+        android:id="@+id/editPetFragment"
+        android:name="com.example.proyecto_ago_dic_2024.EditPetFragment"
+        android:label="Pet Edit"
+        tools:layout="@layout/fragment_edit_pet" />
+
+    <fragment
+        android:id="@+id/requestDetailFragment"
+        android:name="com.example.proyecto_ago_dic_2024.RequestDetailFragment"
+        android:label="Pet Edit"
+        tools:layout="@layout/fragment_request_detail" />
 </navigation>

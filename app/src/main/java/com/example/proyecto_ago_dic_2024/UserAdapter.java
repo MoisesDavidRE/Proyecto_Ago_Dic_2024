@@ -5,23 +5,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class UserAdapter extends ArrayAdapter<User> {
-    public UserAdapter(Context context, List<User> users) {
+public class UserAdapter extends ArrayAdapter<RequestModel> {
+    public UserAdapter(Context context, List<RequestModel> users) {
         super(context, 0, users);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        User user = getItem(position);
+        RequestModel requestModel = getItem(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.user_list_item, parent, false);
         }
         TextView text1 = convertView.findViewById(R.id.text1);
-        text1.setText(user.getName());
+        TextView text2 = convertView.findViewById(R.id.text2);
+        ImageView image1 = convertView.findViewById(R.id.imageView2);
+        text2.setText("Estatus: "+ requestModel.getStatus().toUpperCase());
+        text1.setText("Mascota: " + requestModel.getPet_name());
+        Picasso.get().load(requestModel.getImage1()).into(image1);
         return convertView;
     }
 }

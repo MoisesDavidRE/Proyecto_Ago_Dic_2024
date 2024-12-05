@@ -3,4 +3,12 @@
         <item name="android:background">@color/black_overlay</item>
         <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
     </style>
+    <style name="ThemeOverlay.Proyecto_Ago_Dic_2024.FullscreenContainer" parent="">
+        <item name="fullscreenBackgroundColor">@color/light_blue_600</item>
+        <item name="fullscreenTextColor">@color/light_blue_A200</item>
+    </style>
+    <style name="MyButtonStyle" parent="Widget.Material3.Button">
+        <item name="android:backgroundTint">#1E3A8A</item> <!-- Color de fondo del botón -->
+        <item name="android:textColor">#FFFFFF</item> <!-- Color del texto del botón -->
+    </style>
 </resources>

@@ -18,6 +18,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,7 @@ public class OwnerContactFragment extends Fragment {
     String url = "https://david255311.pythonanywhere.com/user/";
     Integer idUser, userAge;
     String userCity, userDescription, userName, userLastName1, userLastName2, userSocialNetwork,userState;
+    Button contacto;
     TextView nombre,descripcion,age,city,redSocial;
     public OwnerContactFragment () {}
     private FragmentOwnerContactBinding binding;
@@ -57,9 +59,25 @@ public class OwnerContactFragment extends Fragment {
         redSocial = binding.getRoot().findViewById(R.id.redSocial);
         Bundle args = getArguments();
         Integer petId = args.getInt("idPet");
+        contacto = binding.getRoot().findViewById(R.id.button);
         idUser = args.getInt("idUser");
 
         infoUsuario();
+        contacto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("idPet", petId);
+                bundle.putInt("idUser", idUser);
+                EnviarRequestFragment requestFragment = new EnviarRequestFragment();
+                requestFragment.setArguments(bundle);
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.thirdFragment_, requestFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
         return binding.getRoot();
     }
 

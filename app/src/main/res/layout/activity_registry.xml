@@ -1,23 +1,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
     tools:context=".RegistryActivity">
 
-        <EditText
-            android:id="@+id/nameInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Nombre" />
+    <EditText
+        android:id="@+id/nameInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nombre" />
 
-        <EditText
-            android:id="@+id/lastName1Input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Apellido Paterno" />
+    <EditText
+        android:id="@+id/lastName1Input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Apellido Paterno" />
 
     <EditText
         android:id="@+id/lastName2Input"
@@ -36,41 +36,48 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Edad" />
+
     <EditText
         android:id="@+id/state"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Estado" />
+
     <EditText
         android:id="@+id/city"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Ciudad" />
+
     <EditText
         android:id="@+id/socialNetwork"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enlace de tu red social de preferencia" />
+
     <EditText
         android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Descripción de tu perfil" />
+
     <EditText
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="email.example.com" />
+
     <EditText
         android:id="@+id/pass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Contraseña" />
 
-
     <Button
-            android:id="@+id/registerButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Crear Cuenta" />
-    </LinearLayout>
+        android:id="@+id/registerButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FFFF00"
+        android:text="Crear Cuenta"
+        android:textColor="#000" />
+</LinearLayout>

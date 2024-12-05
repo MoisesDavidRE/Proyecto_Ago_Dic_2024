@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#fff">
+
+    <!-- Campo para la descripción -->
+    <EditText
+        android:id="@+id/et_request_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Añade una breve descripción a tu solicitud para que el dueño de la mascota pueda verla."
+        android:inputType="textMultiLine"
+        android:lines="5"
+        android:gravity="top"
+        android:padding="10dp"
+        android:elevation="1dp"
+         />
+
+    <!-- Botón para enviar solicitud -->
+    <Button
+        android:id="@+id/btn_send_request"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enviar Solicitud"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp" />
+
+</FrameLayout>

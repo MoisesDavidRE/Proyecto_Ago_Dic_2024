@@ -92,7 +92,6 @@ public class ThirdFragment extends Fragment implements OnMapReadyCallback, Googl
                     SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("user_doc", Context.MODE_PRIVATE);
                     String nombre = sharedPreferences.getString("user_name","Valor por defecto");
                     LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
-//                    mMap.addMarker(new MarkerOptions().position(currentLocation).title("Dueño:"+nombre).snippet("Clic para ver más"));
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation,15));
                 }
             }
@@ -147,9 +146,9 @@ public class ThirdFragment extends Fragment implements OnMapReadyCallback, Googl
                 .addToBackStack(null) // Permitir regresar al mapa
                 .commit();
     }
-
-
     private void getMascotas() {
+        mMap.clear();
+        markerPetMap.clear();
         String apiUrl = "https://david255311.pythonanywhere.com/pets";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, apiUrl, null,
                 response -> {
@@ -184,7 +183,6 @@ public class ThirdFragment extends Fragment implements OnMapReadyCallback, Googl
                             snippetData.put("name", name);
                             snippetData.put("gender", gender);
                             snippetData.put("imageUrl", image1);
-
                             LatLng petLocation = new LatLng(lat, lon);
                             MarkerOptions markerOptions = new MarkerOptions()
                                     .position(petLocation)
@@ -196,7 +194,7 @@ public class ThirdFragment extends Fragment implements OnMapReadyCallback, Googl
                                                description, image1, image2, image3, lat, lon,req);
                             petsA.add(petO);
                             Marker marker = mMap.addMarker(markerOptions);
-                            markerPetMap.put(marker, petO); // Asocia el marcador con el objeto Pet
+                            markerPetMap.put(marker, petO);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

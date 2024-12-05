@@ -37,7 +37,7 @@ public class PetInfoFragment extends Fragment {
         String image3 = args.getString("image3");
 
         Button buttonRequest = view.findViewById(R.id.btnContactRequest);
-        TextView petInfoTextView = view.findViewById(R.id.pet_info_text);
+
         TextView petAnimal = view.findViewById(R.id.tvAnimal);
         TextView petDescription = view.findViewById(R.id.tvDescription);
         TextView petName = view.findViewById(R.id.tvPetName);
@@ -45,7 +45,7 @@ public class PetInfoFragment extends Fragment {
         TextView petGender = view.findViewById(R.id.tvGender);
         TextView petAge = view.findViewById(R.id.tvAge);
         petAge.setText("Años: "+ age);
-        petInfoTextView.setText("Detalles de la mascota con ID: " + idUser);
+
         petName.setText(name);
         petDescription.setText(description);
         petAnimal.setText(animal+": "+ breed);
